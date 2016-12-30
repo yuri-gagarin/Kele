@@ -1,5 +1,16 @@
-require "Kele/version"
+require "kele/version"
+require "httparty"
 
-module Kele
-  # Your code goes here...
+class Kele
+	include HTTParty 
+
+	def initialize(email, password)
+
+		url = "https://www.bloc.io/api/v1/sessions"
+		response = self.class.post(url, body: {email: email, password: password})
+
+		@auth_token = response["auth_token"]
+
+	end
+
 end

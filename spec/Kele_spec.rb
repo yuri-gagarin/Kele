@@ -1,11 +1,19 @@
 require 'spec_helper'
+require 'figaro'
 
-describe Kele do
-  it 'has a version number' do
-    expect(Kele::VERSION).not_to be nil
-  end
+describe Kele, type: :request do
 
-  it 'does something useful' do
-    expect(false).to eq(true)
-  end
+	context '.kele' do
+		describe '#initialize' do
+			it 'does not return @auth_token with invalid credentials' do
+				response = Kele.new(ENV['MY_LOGIN'], "fakefake") 
+				expect(response.instance_variable_get(:@auth_token)).to be_nil
+			end
+
+			it 'authenticates user' do
+				response = Kele.new(ENV['MY_LOGIN]'], ENV['MY_PASSWORD'])
+				expect(response.instance_variable_get(:@auth_token)).to_not be_nil
+			end
+		end
+	end
 end
