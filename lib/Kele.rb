@@ -26,7 +26,7 @@ class Kele
 		my_info = self.get_me
 		mentor_id = my_info['current_enrollment']['mentor_id']
 
-		response = self.class.get(api_url('mentors/#{mentor_id}/student_availability'), headers: {'authorization' => @auth_token})
+		response = self.class.get(api_url("mentors/#{mentor_id}/student_availability"), headers: {'authorization' => @auth_token})
 
 		return response.body
 
