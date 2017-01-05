@@ -2,3 +2,4 @@ config
 kele-*.gem
 # Ignore application configuration
 /config/application.yml
+.env
