@@ -25,9 +25,37 @@ describe Kele, type: :request do
 			end
 		end
 
-		describe 'get_mentor_availability' do
+		describe '#get_mentor_availability' do
 			it 'returns an object' do
 				expect(kele.get_mentor_availability).to be_a(Object)
+			end
+		end
+
+		describe '#get_roadmap' do
+			it 'returns an object' do
+				expect(kele.get_roadmap).to be_a(Object)
+			end
+
+			it 'has keys within the object' do
+				roadmap = kele.get_roadmap
+				roadmap_keys = ['id', 'name', 'slug', 'projects']
+				roadmap_keys.each do |key|
+					expect(roadmap).to include(key)
+				end
+			end
+		end
+
+		describe '#get_checkpoint' do
+			it 'returns an object' do
+				expect(kele.get_checkpoint(2256)).to be_a(Object)
+			end
+
+			it 'has keys within the object' do
+				checkpoint = kele.get_checkpoint(2256)
+				checkpoint_keys = ['name', 'summary', 'points', 'project_name', 'roadmap_id']
+				checkpoint_keys.each do |key|
+					expect(checkpoint).to include(key)
+				end
 			end
 		end
 	end

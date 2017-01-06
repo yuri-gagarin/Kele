@@ -1,10 +1,12 @@
 require "kele/version"
 require "httparty"
 require "json"
+require 'kele/roadmap'
 
 
 class Kele
 	include HTTParty 
+	include Roadmap
 
 	def initialize(email, password)
 
@@ -28,11 +30,10 @@ class Kele
 
 		response = self.class.get(api_url("mentors/#{mentor_id}/student_availability"), headers: {'authorization' => @auth_token})
 
-		return response.body
+		return @mentor_availability = JSON.parse(response.body)
 
 
 	end
-
 
 	private
 
