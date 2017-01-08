@@ -35,6 +35,21 @@ class Kele
 
 	end
 
+	def get_messages(page=1)
+
+		response = self.class.get(api_url("message_threads?page=#{page}"), headers: {'authorization' => @auth_token})
+
+		return @messages = JSON.parse(response.body)
+	end
+
+
+		
+	def create_message(assignment_branch, assignment_commit_link, checkpoint_id, comment, enrollment_id)
+    	options = {body: {assignment_branch: assignment_branch, assignment_commit_link: assignment_commit_link, checkpoint_id: checkpoint_id, comment: comment, enrollment_id: enrollment_id}, headers: { "authorization" => @auth_token }}
+    	return response = self.class.post(api_url("checkpoint_submissions"), options)
+  	end
+	
+
 	private
 
 	def api_url(location)

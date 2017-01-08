@@ -58,5 +58,19 @@ describe Kele, type: :request do
 				end
 			end
 		end
+
+		describe '#get_messages' do
+			it 'returns an object' do
+				expect(kele.get_messages).to be_a(Object)
+			end
+
+			it 'has keys within the object' do
+				messages = kele.get_messages
+				messages_keys = ['id', 'name', 'slug', 'projects']
+				messages_keys.each do |key|
+					expect(messages).to include(key)
+				end
+			end
+		end
 	end
 end
