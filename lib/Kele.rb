@@ -44,18 +44,28 @@ class Kele
 
 
 		
-	def create_message(assignment_branch, assignment_commit_link, checkpoint_id, comment, enrollment_id)
-    	options = {body: {assignment_branch: assignment_branch, assignment_commit_link: assignment_commit_link, checkpoint_id: checkpoint_id, comment: comment, enrollment_id: enrollment_id}, headers: { "authorization" => @auth_token }}
-    	response = self.class.post(api_url("checkpoint_submissions"), options)
-    	return response
+	def create_message(sender, recepient_id, token, subject, stripped_text)
+    	response = self.class.post(api_url("messages"), headers: {'authorization' => @auth_token})
+    	status = JSON.parse(response.body)
+    	if status[:success] == true 
+    		return "Message Sent"
+    	else
+    		return "Message did not send"
+    	end
   	end
 	
+
+	def submit_checkpoint(assignment_branch, assignment_commit_link, checkpoint_id, comment, enrollment_id)
+		response = self.class.post(api_url("checkpoint_submissions"), headers: {'authorization' => @auth_token})
+		checkpoint_details_hash = JSON.parse(response.body)
+	end
 
 	private
 
 	def api_url(location)
 
 		return "https://www.bloc.io/api/v1/#{location}"
+		
 	end
 
 
